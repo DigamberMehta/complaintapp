@@ -1,18 +1,18 @@
 import express from "express";
-import authMiddleware from "../middleware/auth.middleware.js";
 import {
   getAllComplaints,
+  getComplaintById,
   createComplaint,
-  resolveComplaint,
+  updateComplaintStatus,
   deleteComplaint,
 } from "../controllers/complaint.controller.js";
 
 const router = express.Router();
 
 router.get("/", getAllComplaints);
+router.get("/:id", getComplaintById);
 router.post("/", createComplaint);
-
-router.put("/:id/resolve", authMiddleware, resolveComplaint);
-router.delete("/:id", authMiddleware, deleteComplaint);
+router.put("/:id", updateComplaintStatus);
+router.delete("/:id", deleteComplaint);
 
 export default router;

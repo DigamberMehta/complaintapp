@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Complaint - Issue Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar">
+        <div class="nav-content">
+          <h1 class="logo">Issue Tracker</h1>
+          <div class="nav-links">
+            <a href="index.html" class="nav-link active">Submit Complaint</a>
+            <a href="admin.html" class="nav-link">Admin Portal</a>
+          </div>
+        </div>
+      </nav>
+
+      <main class="main-content">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Submit a Complaint</h2>
+            <p class="card-description">
+              Please provide details about your issue and we'll address it as
+              soon as possible.
+            </p>
+          </div>
+          <div class="card-content">
+            <form id="complaintForm" class="form">
+              <div class="form-group">
+                <label for="name" class="label">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  class="input"
+                  placeholder="Your name (optional)"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="input"
+                  placeholder="your.email@example.com (optional)"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="title" class="label">
+                  Title <span class="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  class="input"
+                  placeholder="Brief summary of your issue"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="description" class="label">
+                  Description <span class="required">*</span>
+                </label>
+                <textarea
+                  id="description"
+                  class="textarea"
+                  rows="5"
+                  placeholder="Please provide detailed information about your complaint..."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                <span class="btn-text">Submit Complaint</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div
+          id="successMessage"
+          class="alert alert-success"
+          style="display: none"
+        >
+          <div class="alert-content">
+            <svg
+              class="alert-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <div>
+              <strong class="alert-title">Success!</strong>
+              <p class="alert-message">
+                Your complaint has been submitted successfully. Complaint ID:
+                <span id="complaintId"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="errorMessage" class="alert alert-error" style="display: none">
+          <div class="alert-content">
+            <svg
+              class="alert-icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <div>
+              <strong class="alert-title">Error</strong>
+              <p class="alert-message" id="errorText"></p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>&copy; 2026 Online Complaint System. All rights reserved.</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
