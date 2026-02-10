@@ -1,4 +1,3 @@
-
 let allComplaints = [];
 let complaintToDelete = null;
 

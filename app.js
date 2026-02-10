@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-import { fileURLToPath } from "url";
 import loggerMiddleware from "./middleware/logger.middleware.js";
 import complaintRoutes from "./routes/complaint.routes.js";
 
