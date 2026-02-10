@@ -1,8 +1,8 @@
-// Admin-specific JavaScript
+
 let allComplaints = [];
 let complaintToDelete = null;
 
-// Load complaints on page load
+
 document.addEventListener("DOMContentLoaded", () => {
   loadComplaints();
 

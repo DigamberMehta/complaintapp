@@ -1,4 +1,3 @@
-// User Page - Submit Complaint Form
 if (document.getElementById("complaintForm")) {
   const form = document.getElementById("complaintForm");
   const successMessage = document.getElementById("successMessage");
@@ -26,33 +25,26 @@ if (document.getElementById("complaintForm")) {
       const result = await response.json();
 
       if (result.success) {
-        // Show success message
         document.getElementById("complaintId").textContent =
           `#${result.data.id}`;
         successMessage.style.display = "block";
         errorMessage.style.display = "none";
 
-        // Reset form
         form.reset();
 
-        // Scroll to success message
         successMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
-        // Hide success message after 10 seconds
         setTimeout(() => {
           successMessage.style.display = "none";
         }, 10000);
       } else {
-        // Show error message
         document.getElementById("errorText").textContent =
           result.message || "Failed to submit complaint";
         errorMessage.style.display = "block";
         successMessage.style.display = "none";
 
-        // Scroll to error message
         errorMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
-        // Hide error message after 7 seconds
         setTimeout(() => {
           errorMessage.style.display = "none";
         }, 7000);
@@ -70,7 +62,6 @@ if (document.getElementById("complaintForm")) {
     }
   });
 
-  // Auto-hide alerts when clicking on them
   successMessage.addEventListener("click", () => {
     successMessage.style.display = "none";
   });
