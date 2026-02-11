@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Portal - Issue Tracker</title>
+    <title>Admin Portal - Hostel Management</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
       <nav class="navbar">
         <div class="nav-content">
-          <h1 class="logo">Issue Tracker</h1>
+          <h1 class="logo">Hostel Complaint Management</h1>
           <div class="nav-links">
             <a href="index.html" class="nav-link">Submit Complaint</a>
             <a href="admin.html" class="nav-link active">Admin Portal</a>
@@ -18,13 +18,54 @@
         </div>
       </nav>
 
-      <main class="main-content">
+      <!-- Admin Login Modal -->
+      <div id="loginModal" class="login-modal-overlay">
+        <div class="login-modal-content">
+          <div class="login-modal-header">
+            <h2 class="login-modal-title">Admin Access</h2>
+            <p class="login-modal-subtitle">
+              Enter the admin passcode to continue
+            </p>
+          </div>
+
+          <div class="login-modal-body">
+            <div class="form-group">
+              <label for="adminPasscode" class="label">Passcode</label>
+              <input
+                type="password"
+                id="adminPasscode"
+                class="input"
+                placeholder="Enter admin passcode"
+                autocomplete="off"
+              />
+            </div>
+            <button id="loginBtn" class="btn btn-primary btn-block">
+              Login
+            </button>
+          </div>
+
+          <div id="loginError" class="login-error" style="display: none">
+            Incorrect passcode. Please try again.
+          </div>
+        </div>
+      </div>
+
+      <main class="main-content" id="adminContent" style="display: none">
         <div class="card">
           <div class="card-header">
             <div>
               <h2 class="card-title">Complaint Management</h2>
               <p class="card-description">
                 View, update, and manage all submitted complaints
+              </p>
+              <p
+                class="auto-refresh-info"
+                id="autoRefreshInfo"
+                style="display: none"
+              >
+                <span class="refresh-dot"></span>
+                Auto-refreshing every 10s | Last refresh:
+                <span id="lastRefreshTime">just now</span>
               </p>
             </div>
             <button id="refreshBtn" class="btn btn-secondary">
@@ -72,6 +113,25 @@
                 <option value="pending">Pending</option>
                 <option value="resolved">Resolved</option>
                 <option value="rejected">Rejected</option>
+              </select>
+            </div>
+
+            <div class="filter-section">
+              <label for="categoryFilter" class="label"
+                >Filter by Category:</label
+              >
+              <select id="categoryFilter" class="select">
+                <option value="all">All Categories</option>
+                <option value="maintenance">Maintenance</option>
+                <option value="cleanliness">Cleanliness & Hygiene</option>
+                <option value="noise">Noise & Disturbance</option>
+                <option value="water">Water & Electricity</option>
+                <option value="food">Food & Mess</option>
+                <option value="security">Security & Safety</option>
+                <option value="furniture">Furniture & Bedding</option>
+                <option value="wifi">WiFi & Internet</option>
+                <option value="laundry">Laundry Services</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
@@ -147,9 +207,7 @@
         </div>
       </main>
 
-      <footer class="footer">
-       
-      </footer>
+      <footer class="footer"></footer>
     </div>
 
     <!-- Modal for Confirmation -->

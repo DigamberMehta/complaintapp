@@ -1,10 +1,59 @@
 let allComplaints = [];
 let complaintToDelete = null;
+let autoRefreshInterval = null;
 
+// Hardcoded admin passcode
+const ADMIN_PASSCODE = "2000";
+const AUTO_REFRESH_TIME = 10000; // 10 seconds
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadComplaints();
+  setupLoginModal();
+});
 
+// Setup login modal
+function setupLoginModal() {
+  const loginModal = document.getElementById("loginModal");
+  const adminContent = document.getElementById("adminContent");
+  const loginBtn = document.getElementById("loginBtn");
+  const passcodeInput = document.getElementById("adminPasscode");
+  const loginError = document.getElementById("loginError");
+
+  // Show login modal initially
+  loginModal.style.display = "flex";
+  adminContent.style.display = "none";
+
+  // Handle login button click
+  loginBtn.addEventListener("click", verifyPasscode);
+
+  // Handle Enter key in passcode input
+  passcodeInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      verifyPasscode();
+    }
+  });
+
+  function verifyPasscode() {
+    const enteredPasscode = passcodeInput.value.trim();
+
+    if (enteredPasscode === ADMIN_PASSCODE) {
+      // Correct passcode, show admin content
+      loginModal.style.display = "none";
+      adminContent.style.display = "block";
+      loginError.style.display = "none";
+
+      // Load complaints after successful login
+      loadComplaints();
+      setupAdminPanel();
+    } else {
+      // Incorrect passcode, show error
+      loginError.style.display = "block";
+      passcodeInput.value = "";
+      passcodeInput.focus();
+    }
+  }
+}
+
+function setupAdminPanel() {
   document
     .getElementById("refreshBtn")
     .addEventListener("click", loadComplaints);
@@ -12,12 +61,30 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("statusFilter")
     .addEventListener("change", filterComplaints);
   document
+    .getElementById("categoryFilter")
+    .addEventListener("change", filterComplaints);
+  document
     .getElementById("cancelDelete")
     .addEventListener("click", closeDeleteModal);
   document
     .getElementById("confirmDelete")
     .addEventListener("click", confirmDeleteComplaint);
-});
+
+  // Start auto-refresh every 10 seconds
+  startAutoRefresh();
+}
+
+function startAutoRefresh() {
+  // Clear any existing interval
+  if (autoRefreshInterval) {
+    clearInterval(autoRefreshInterval);
+  }
+
+  // Set up new interval for auto-refresh
+  autoRefreshInterval = setInterval(() => {
+    loadComplaints();
+  }, AUTO_REFRESH_TIME);
+}
 
 async function loadComplaints() {
   try {
@@ -28,9 +95,20 @@ async function loadComplaints() {
       allComplaints = result.data;
       updateStats();
       displayComplaints(allComplaints);
+      updateRefreshInfo();
     }
   } catch (error) {
     showError("Failed to load complaints");
+  }
+}
+
+function updateRefreshInfo() {
+  const autoRefreshInfo = document.getElementById("autoRefreshInfo");
+  const lastRefreshTime = document.getElementById("lastRefreshTime");
+
+  if (autoRefreshInfo) {
+    autoRefreshInfo.style.display = "flex";
+    lastRefreshTime.textContent = new Date().toLocaleTimeString();
   }
 }
 
@@ -46,11 +124,18 @@ function updateStats() {
 }
 
 function filterComplaints() {
-  const filter = document.getElementById("statusFilter").value;
-  const filtered =
-    filter === "all"
+  const statusFilter = document.getElementById("statusFilter").value;
+  const categoryFilter = document.getElementById("categoryFilter").value;
+
+  let filtered =
+    statusFilter === "all"
       ? allComplaints
-      : allComplaints.filter((c) => c.status === filter);
+      : allComplaints.filter((c) => c.status === statusFilter);
+
+  if (categoryFilter !== "all") {
+    filtered = filtered.filter((c) => c.category === categoryFilter);
+  }
+
   displayComplaints(filtered);
 }
 
@@ -74,13 +159,24 @@ function displayComplaints(complaints) {
                             <span class="complaint-id-label">ID:</span>
                             <span class="complaint-id-value">#${complaint.id}</span>
                         </div>
-                        <span class="badge badge-${complaint.status}">${complaint.status}</span>
+                        <div class="header-badges">
+                            <span class="badge badge-${complaint.category || "other"}">${complaint.category || "other"}</span>
+                            <span class="badge badge-${complaint.status}">${complaint.status}</span>
+                        </div>
                     </div>
                     
                     <h3 class="complaint-title">${escapeHtml(complaint.title)}</h3>
                     <p class="complaint-description">${escapeHtml(complaint.description)}</p>
                     
                     <div class="complaint-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Room:</span>
+                            <span>${escapeHtml(complaint.roomNumber || "N/A")}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Name:</span>
+                            <span>${escapeHtml(complaint.name || "Anonymous")}</span>
+                        </div>
                         <div class="meta-item">
                             <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>

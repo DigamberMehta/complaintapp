@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Submit Complaint - Issue Tracker</title>
+    <title>Submit Complaint - Hostel Management</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
       <nav class="navbar">
         <div class="nav-content">
-          <h1 class="logo">Issue Tracker</h1>
+          <h1 class="logo">Hostel Complaint Management</h1>
           <div class="nav-links">
             <a href="index.html" class="nav-link active">Submit Complaint</a>
             <a href="admin.html" class="nav-link">Admin Portal</a>
@@ -19,124 +19,276 @@
       </nav>
 
       <main class="main-content">
-        <div class="card">
-          <div class="card-header">
-            <h2 class="card-title">Submit a Complaint</h2>
-            <p class="card-description">
-              Please provide details about your issue and we'll address it as
-              soon as possible.
-            </p>
-          </div>
-          <div class="card-content">
-            <form id="complaintForm" class="form">
-              <div class="form-group">
-                <label for="name" class="label">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  class="input"
-                  placeholder="Your name (optional)"
-                />
+        <div class="two-column-layout">
+          <!-- Left Column: Complaint Submission (70%) -->
+          <div class="column-left">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Submit a Complaint</h2>
+                <p class="card-description">
+                  Please provide details about your issue and we'll address it
+                  as soon as possible.
+                </p>
               </div>
+              <div class="card-content">
+                <form id="complaintForm" class="form">
+                  <div class="form-group">
+                    <label for="roomNumber" class="label">Room Number</label>
+                    <input
+                      type="text"
+                      id="roomNumber"
+                      class="input"
+                      placeholder="Your room number (optional)"
+                    />
+                  </div>
 
-              <div class="form-group">
-                <label for="email" class="label">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  class="input"
-                  placeholder="your.email@example.com (optional)"
-                />
+                  <div class="form-group">
+                    <label for="name" class="label">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      class="input"
+                      placeholder="Your name (optional)"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email" class="label">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      class="input"
+                      placeholder="your.email@example.com (optional)"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="category" class="label">
+                      Category <span class="required">*</span>
+                    </label>
+                    <select id="category" class="select" required>
+                      <option value="">Select a category</option>
+                      <option value="maintenance">
+                        Maintenance (Plumbing, Electrical)
+                      </option>
+                      <option value="cleanliness">Cleanliness & Hygiene</option>
+                      <option value="noise">Noise & Disturbance</option>
+                      <option value="water">Water & Electricity Issues</option>
+                      <option value="food">Food & Mess Quality</option>
+                      <option value="security">Security & Safety</option>
+                      <option value="furniture">Furniture & Bedding</option>
+                      <option value="wifi">WiFi & Internet</option>
+                      <option value="laundry">Laundry Services</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="title" class="label">
+                      Title <span class="required">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="title"
+                      class="input"
+                      placeholder="Brief summary of your complaint"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="description" class="label">
+                      Description <span class="required">*</span>
+                    </label>
+                    <textarea
+                      id="description"
+                      class="textarea"
+                      rows="5"
+                      placeholder="Please provide detailed information about your complaint..."
+                      required
+                    ></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    <span class="btn-text">Submit Complaint</span>
+                  </button>
+                </form>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="title" class="label">
-                  Title <span class="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="title"
-                  class="input"
-                  placeholder="Brief summary of your issue"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="description" class="label">
-                  Description <span class="required">*</span>
-                </label>
-                <textarea
-                  id="description"
-                  class="textarea"
-                  rows="5"
-                  placeholder="Please provide detailed information about your complaint..."
-                  required
-                ></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary">
-                <span class="btn-text">Submit Complaint</span>
-              </button>
-            </form>
-          </div>
-        </div>
-
-        <div
-          id="successMessage"
-          class="alert alert-success"
-          style="display: none"
-        >
-          <div class="alert-content">
-            <svg
-              class="alert-icon"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <div
+              id="successMessage"
+              class="alert alert-success"
+              style="display: none"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
-            <div>
-              <strong class="alert-title">Success!</strong>
-              <p class="alert-message">
-                Your complaint has been submitted successfully. Complaint ID:
-                <span id="complaintId"></span>
-              </p>
+              <div class="alert-content">
+                <svg
+                  class="alert-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <div>
+                  <strong class="alert-title">Success!</strong>
+                  <p class="alert-message">
+                    Your complaint has been submitted successfully. Complaint
+                    ID:
+                    <span id="complaintId"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="errorMessage"
+              class="alert alert-error"
+              style="display: none"
+            >
+              <div class="alert-content">
+                <svg
+                  class="alert-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <div>
+                  <strong class="alert-title">Error</strong>
+                  <p class="alert-message" id="errorText"></p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div id="errorMessage" class="alert alert-error" style="display: none">
-          <div class="alert-content">
-            <svg
-              class="alert-icon"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-              ></path>
-            </svg>
-            <div>
-              <strong class="alert-title">Error</strong>
-              <p class="alert-message" id="errorText"></p>
+          <!-- Right Column: Complaint Tracking (30%) -->
+          <div class="column-right">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Track Complaint</h2>
+                <p class="card-description">
+                  Enter your complaint ID to check the status
+                </p>
+              </div>
+              <div class="card-content">
+                <div class="form-group">
+                  <label for="trackingId" class="label">Complaint ID</label>
+                  <div class="tracking-input-group">
+                    <input
+                      type="text"
+                      id="trackingId"
+                      class="input"
+                      placeholder="Enter complaint ID (e.g., 1, 2, 3)"
+                    />
+                    <button
+                      type="button"
+                      id="trackBtn"
+                      class="btn btn-secondary"
+                    >
+                      <span class="btn-text">Search</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div id="trackingResult" style="display: none">
+                  <div class="tracking-card">
+                    <div class="tracking-header">
+                      <span class="tracking-id" id="resultId"></span>
+                      <span class="badge" id="resultStatus"></span>
+                    </div>
+                    <div class="tracking-content">
+                      <h3 class="tracking-title" id="resultTitle"></h3>
+                      <p
+                        class="tracking-description"
+                        id="resultDescription"
+                      ></p>
+                      <div class="tracking-meta">
+                        <div class="meta-item">
+                          <span class="meta-label">Room Number:</span>
+                          <span class="meta-value" id="resultRoomNumber"></span>
+                        </div>
+                        <div class="meta-item">
+                          <span class="meta-label">Category:</span>
+                          <span class="meta-value" id="resultCategory"></span>
+                        </div>
+                        <div class="meta-item">
+                          <span class="meta-label">Submitted by:</span>
+                          <span class="meta-value" id="resultName"></span>
+                        </div>
+                        <div class="meta-item">
+                          <span class="meta-label">Email:</span>
+                          <span class="meta-value" id="resultEmail"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="trackingError"
+                  class="alert alert-error"
+                  style="display: none"
+                >
+                  <div class="alert-content">
+                    <svg
+                      class="alert-icon"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                    <div>
+                      <strong class="alert-title">Not Found</strong>
+                      <p class="alert-message" id="trackingErrorText"></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="emptyTracking"
+                  class="empty-state"
+                  style="display: flex"
+                >
+                  <svg
+                    class="empty-icon"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    ></path>
+                  </svg>
+                  <p class="empty-text">Enter a complaint ID to track</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </main>
 
-      <footer class="footer">
-        
-      </footer>
+      <footer class="footer"></footer>
     </div>
 
     <script src="script.js"></script>

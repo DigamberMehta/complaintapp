@@ -29,7 +29,7 @@ export const getComplaintById = (req, res) => {
 };
 
 export const createComplaint = (req, res) => {
-  const { title, description, name, email } = req.body;
+  const { title, description, name, email, roomNumber, category } = req.body;
 
   if (!title || !description) {
     return res.status(400).json({
@@ -44,6 +44,8 @@ export const createComplaint = (req, res) => {
     description,
     name: name || "Anonymous",
     email: email || "",
+    roomNumber: roomNumber || "",
+    category: category || "other",
     status: "pending",
     createdAt: new Date().toISOString(),
   };
